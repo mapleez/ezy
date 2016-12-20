@@ -331,49 +331,31 @@ public final class DbUtils {
             this.adapted = adapted;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public boolean acceptsURL (String url) throws SQLException {
             return adapted.acceptsURL (url);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public Connection connect (String url, Properties info) throws SQLException {
             return adapted.connect (url, info);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public int getMajorVersion () {
             return adapted.getMajorVersion ();
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public int getMinorVersion () {
             return adapted.getMinorVersion ();
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public DriverPropertyInfo [] getPropertyInfo (String url, Properties info) throws SQLException {
             return adapted.getPropertyInfo (url, info);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public boolean jdbcCompliant () {
             return adapted.jdbcCompliant ();
@@ -382,6 +364,7 @@ public final class DbUtils {
         /**
          * Java 1.7 method.
          */
+        @Override
         public Logger getParentLogger () throws SQLFeatureNotSupportedException {
             if (parentLoggerSupported) {
                 try {
