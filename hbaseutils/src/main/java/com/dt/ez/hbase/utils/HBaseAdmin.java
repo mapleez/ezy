@@ -29,12 +29,12 @@ public class HBaseAdmin {
     public void createTable (String tbName, String [] families, String [] splitKeys)
     	throws IOException {
     	TableBuilder table = new TableBuilder (tbName);
-    	if (null != splitKeys) {
-	    	for (String f: families)
-	    		table.addColumnFamily (f);
-    	}
-    	byte [][] splits = Bytes.toByteArrays (splitKeys);
-    	admin.createTable(table.getTableDesc (), splits);
+    	byte [][] splits = null;
+    	if (null != splitKeys)
+    		splits = Bytes.toByteArrays (splitKeys);	    	
+    	for (String f: families)
+    		table.addColumnFamily (f);
+    	admin.createTable (table.getTableDesc (), splits);
     }
 
     /**
