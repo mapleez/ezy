@@ -10,6 +10,7 @@ package com.dt.ez.hbase.utils;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -57,11 +58,31 @@ public class ReqProcessor implements Closeable {
 	public void put (byte [] tbName, PutRequest req) throws IOException {
 		put (TableName.valueOf (tbName), req);
 	}
-
+	
+	/**
+	 * 
+	 * @param tbName
+	 * @param req
+	 * @return
+	 * @throws IOException
+	 */
+	public <T> T scan (TableName tbName, ScanRequest req) throws IOException {
+		// TODO... 
+		return scan (tbName, req, null);
+	}
+	
+	
+	public <T> T scan (TableName tbName, ScanRequest req, ResultHandler <T> hdl) 
+			throws IOException {
+		Table tb = conn.getTable (tbName);
+		ResultScanner res = tb.getScanner (req.getScan ());
+		return hdl.handle (res);
+	}
+	
+	
 	public void close () throws IOException {
 		conn.close ();
 	}
-	
 	
 	/**
 	 * Unit testing.
