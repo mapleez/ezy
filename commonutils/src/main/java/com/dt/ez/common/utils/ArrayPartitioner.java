@@ -17,7 +17,10 @@ public class ArrayPartitioner {
 	public boolean next () {
 		/* First loop */
 		if (right == start) {
-			right = left + partLen - 1;
+			if (partLen > end) {
+				right = end;
+			} else
+				right = left + partLen - 1;
 			return true;
 		}
 		
